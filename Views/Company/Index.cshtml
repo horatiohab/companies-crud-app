@@ -47,7 +47,7 @@
                     <a asp-action="Edit" asp-route-id="@item.CompanyId" class="btn btn-success text-light" style="cursor:pointer">
                         <i class="bi bi-pencil-square">&nbsp; Edit</i>
                     </a>
-                    <a asp-action="Delete" asp-route-id="@item.CompanyId" class="btn btn-danger text-light" style="cursor:pointer">
+                    <a class="btn btn-danger text-light" style="cursor:pointer" onclick="deleteEntry('/Company/Delete/@item.CompanyId')">
                         <i class="bi bi-x-circle">&nbsp; Delete</i>
                     </a>
                 </td>

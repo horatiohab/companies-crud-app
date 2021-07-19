@@ -63,6 +63,19 @@ namespace CompaniesApp.Controllers
             return View(company);
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var entry = await _context.Companies.FindAsync(id);
+            if (entry == null)
+            {
+                return Json(new { success = false, message = "Error while deleting entry" });
+            }
+            _context.Companies.Remove(entry);
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "Succesfully deleted entry" });
+        }
+
        /* #region API CALLS
 
         [HttpGet]
