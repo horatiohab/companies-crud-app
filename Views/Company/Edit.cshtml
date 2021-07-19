@@ -14,13 +14,14 @@
         <div class="col-12 border-bottom">
             <h2 class="text-primary">@title</h2>
         </div>
+        <input type="hidden" asp-for="CompanyId" />
         <div class="col-8 pt-4">
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Name"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Name" class="form-control"></input>
+                    <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
             </div>
@@ -29,7 +30,7 @@
                     <label asp-for="Email"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Email" class="form-control"></input>
+                    <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
@@ -38,7 +39,7 @@
                     <label asp-for="Logo"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Logo" class="form-control"></input>
+                    <input asp-for="Logo" class="form-control" />
                     <span asp-validation-for="Logo" class="text-danger"></span>
                 </div>
             </div>
@@ -47,7 +48,7 @@
                     <label asp-for="Website"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Website" class="form-control"></input>
+                    <input asp-for="Website" class="form-control" />
                     <span asp-validation-for="Website" class="text-danger"></span>
                 </div>
             </div>
