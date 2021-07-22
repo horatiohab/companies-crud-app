@@ -1,4 +1,4 @@
-﻿@model CompaniesApp.Models.Company
+﻿@model CompaniesApp.Models.Employee
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var title = "Add Company";
@@ -6,23 +6,32 @@
 
 <form method="post" enctype="multipart/form-data">
     <div class="row p-3 border">
-        @if (Model.CompanyId != 0)
+        @if (Model.EmployeeId != 0)
         {
             // edit
-            title = "Edit Company";
+            title = "Edit Employee";
         }
         <div class="col-12 border-bottom">
             <h2 class="text-primary">@title</h2>
         </div>
-        <input type="hidden" asp-for="CompanyId" />
+        <input type="hidden" asp-for="EmployeeId" />
         <div class="col-8 pt-4">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Name"></label>
+                    <label asp-for="FirstName"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="LastName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
@@ -36,31 +45,31 @@
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Website"></label>
+                    <label asp-for="PhoneNumber"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Website" class="form-control" />
-                    <span asp-validation-for="Website" class="text-danger"></span>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Logo"></label>
+                    <label asp-for="Company"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Logo" type="file" name="file" accept="image/*" />
-                    <span asp-validation-for="Logo" class="text-danger"></span>
+                    <input asp-for="Company" class="form-control" />
+                    <span asp-validation-for="Company" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-8 offset-4">
-                    @if (Model.CompanyId != 0)
+                    @if (Model.EmployeeId != 0)
                     {
-                        <partial name="_EditAndBackButton" model="Model.CompanyId" />
+                        <partial name="_EditAndBackButton" model="Model.EmployeeId" />
                     }
                     else
                     {
-                        <partial name="_CreateAndBackButton" model="Model.CompanyId" />
+                        <partial name="_CreateAndBackButton" model="Model.EmployeeId" />
                     }
                 </div>
             </div>

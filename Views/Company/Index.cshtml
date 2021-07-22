@@ -22,8 +22,8 @@
             <tr class="table-info">
                 <th>@Html.DisplayNameFor(model => model.Name)</th>
                 <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>@Html.DisplayNameFor(model => model.Logo)</th>
                 <th>@Html.DisplayNameFor(model => model.Website)</th>
+                <th>@Html.DisplayNameFor(model => model.Logo)</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,11 +38,16 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Logo)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Website)
                 </td>
+                
+                <td style="text-align:center">
+                    @if (item.Logo != null)
+                    {
+                        <image src="@Html.DisplayFor(modelItem => item.Logo)" style="width:100px"></image>
+                    }
+                </td>
+
                 <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.CompanyId" class="btn btn-success text-light" style="cursor:pointer">
                         <i class="bi bi-pencil-square">&nbsp; Edit</i>
