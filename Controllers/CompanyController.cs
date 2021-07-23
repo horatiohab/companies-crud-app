@@ -27,6 +27,30 @@ namespace CompaniesApp.Controllers
             return View(await _context.Companies.ToListAsync());
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Company company = await _context.Companies.SingleOrDefaultAsync(c => c.CompanyId == id);
+
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            CompanyViewModel viewModel = new CompanyViewModel();
+
+            viewModel.Company = company;
+
+            List<Employee> employees = await _context.Employees
+                .Where(e => e.Company == company).ToListAsync();
+
+            return View(viewModel);
+        }
+
         public async Task<IActionResult> Edit(int? id)
         {
             Company company = new Company();

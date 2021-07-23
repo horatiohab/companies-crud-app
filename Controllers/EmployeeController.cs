@@ -2,6 +2,7 @@
 using CompaniesApp.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,27 +28,34 @@ namespace CompaniesApp.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            Employee employee = new Employee();
+            EmployeeViewModel employeeVM = new EmployeeViewModel()
+            {
+                Employee = new Employee(),
+                CompanyList = _context.Companies.Select(id => new SelectListItem { 
+                    Text = id.Name,
+                    Value = id.CompanyId.ToString()
+                })
+            };
 
-            if (id == null)
+            if(id == null)
             {
                 // this is for create
-                return View(employee);
+                return View(employeeVM);
             }
 
-            //this is for edit
-            employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            // this is for edit
+            employeeVM.Employee = await _context.Employees.FindAsync(id);
+            if (employeeVM.Employee == null)
             {
                 return NotFound();
             }
-
-            return View(employee);
+            //ViewData["CompanyId"] = new SelectList(_context.Companies, "CompanyId", "Name", employee.CompanyId);
+            return View(employeeVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,Name,Email,Logo,Website")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId, FirstName, LastName, Email, PhoneNumber, CompanyId, Company")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +64,7 @@ namespace CompaniesApp.Controllers
                 {
                     _context.Add(employee);
                 }
-                // Update exsiting entry
+                // Update exsisting entry
                 else
                 {
                     _context.Update(employee);
@@ -64,21 +72,8 @@ namespace CompaniesApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(employee);
-        }
-
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var entry = await _context.Employees.FindAsync(id);
-            if (entry == null)
-            {
-                return Json(new { success = false, message = "Error while deleting entry" });
-            }
-
-            _context.Employees.Remove(entry);
-            await _context.SaveChangesAsync();
-            return Json(new { success = true, message = "Succesfully deleted entry" });
         }
     }
 }

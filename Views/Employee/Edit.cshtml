@@ -1,12 +1,14 @@
-﻿@model CompaniesApp.Models.Employee
+﻿@model CompaniesApp.Data.EmployeeViewModel
+
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var title = "Add Company";
+    var title = "Add Employee";
 }
 
 <form method="post" enctype="multipart/form-data">
     <div class="row p-3 border">
-        @if (Model.EmployeeId != 0)
+        @if (Model.Employee.EmployeeId != 0)
         {
             // edit
             title = "Edit Employee";
@@ -14,62 +16,64 @@
         <div class="col-12 border-bottom">
             <h2 class="text-primary">@title</h2>
         </div>
-        <input type="hidden" asp-for="EmployeeId" />
+        <input type="hidden" asp-for="Employee.EmployeeId" />
         <div class="col-8 pt-4">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="FirstName"></label>
+                    <label asp-for="Employee.FirstName"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <input asp-for="Employee.FirstName" class="form-control" />
+                    <span asp-validation-for="Employee.FirstName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="LastName"></label>
+                    <label asp-for="Employee.LastName"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                    <input asp-for="Employee.LastName" class="form-control" />
+                    <span asp-validation-for="Employee.LastName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Email"></label>
+                    <label asp-for="Employee.Email"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <input asp-for="Employee.Email" class="form-control" />
+                    <span asp-validation-for="Employee.Email" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="PhoneNumber"></label>
+                    <label asp-for="Employee.PhoneNumber"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <input asp-for="Employee.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="Employee.PhoneNumber" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Company"></label>
+                    <label asp-for="Employee.CompanyId"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Company" class="form-control" />
-                    <span asp-validation-for="Company" class="text-danger"></span>
+                    <select asp-for="Employee.CompanyId" class="form-control" asp-items="Model.CompanyList">
+                        <option value=""></option>
+                    </select>
+                    <span asp-validation-for="Employee.CompanyId" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-8 offset-4">
-                    @if (Model.EmployeeId != 0)
+                    @if (Model.Employee.EmployeeId != 0)
                     {
-                        <partial name="_EditAndBackButton" model="Model.EmployeeId" />
+                        <partial name="_EditAndBackButton" model="Model.Employee.EmployeeId" />
                     }
                     else
                     {
-                        <partial name="_CreateAndBackButton" model="Model.EmployeeId" />
+                        <partial name="_CreateAndBackButton" model="Model.Employee.EmployeeId" />
                     }
                 </div>
             </div>
