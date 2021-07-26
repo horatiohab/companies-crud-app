@@ -23,7 +23,11 @@ namespace CompaniesApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employees.ToListAsync());
+            var employees = _context.Employees
+                .Include(e => e.Company)
+                .AsNoTracking();
+
+            return View(await employees.ToListAsync());
         }
 
         public async Task<IActionResult> Edit(int? id)
