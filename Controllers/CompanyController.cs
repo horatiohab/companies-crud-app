@@ -75,49 +75,51 @@ namespace CompaniesApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CompanyId,Name,Email,Logo,Website")] Company company)
         {
-            //var companyToUpdate = await _context.Companies.FindAsync(id);
-
-            
-            /*if (System.IO.File.Exists(imagePath))
-            {
-                
-            }*/
 
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 var file = HttpContext.Request.Form.Files;
 
-                if (file.Count > 0)
+                if (file.Count == 1)
                 {
-                    var imagePath = Path.Combine(_hostEnvironment.WebRootPath + company.Logo);
-                    // Create a unique filename for the image
-                    string prefix = Guid.NewGuid().ToString();
+                    /*// Delete old file if there is one
+                    if (company.Logo != null)
+                    {
+                        var imagePath = Path.Combine(wwwRootPath + company.Logo);
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+                        }
+                    }*/
+
+                    // Create a filename for the image
+                    //string prefix = Guid.NewGuid().ToString();
+                    string prefix = company.Name + "_" + "logo";
                     string extension = Path.GetExtension(file[0].FileName);
                     var uploads = Path.Combine(wwwRootPath, "images");
-
+                    string fileName = company.Logo = prefix + extension;
 
                     // Save file to wwwroot/images/
                     using (var fileStream = new FileStream(Path.Combine(uploads, prefix + extension), FileMode.Create))
                     {
                         await file[0].CopyToAsync(fileStream);
                     }
-                    
-                    
-                    company.Logo = "/images/" + prefix + extension;
 
-                    if (System.IO.File.Exists(imagePath))
-                    {
-                        System.IO.File.Delete(imagePath);
-                    }
-                    
+                    company.Logo = Path.Combine("\\images", prefix + extension);
+                }
+                else if (company.CompanyId != 0)
+                {
+                    // Update when the image isn't changed
+                    var objFromDb = await _context.Companies
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(m => m.CompanyId == id);
 
+                    company.Logo = objFromDb.Logo;
                 }
 
-
-
                 // Create new entry
-                if (id != company.CompanyId)
+                if (company.CompanyId == 0)
                 {
                     _context.Add(company);
                 }

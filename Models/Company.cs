@@ -15,7 +15,7 @@ namespace CompaniesApp.Models
         [Required]
         public string Name { get; set; }
         public string Email { get; set; }
-       /* [NotMapped]
+        /*[NotMapped]
         [Display(Name = "Logo")]
         public IFormFile ImageFile { get; set; }*/
         public string Logo { get; set; }
