@@ -1,6 +1,6 @@
 # companies-crud-app
 
-C# ASP.NET Core and Entity Framework Core MVC applicatiion with companies and employee CRUD functionality.
+C# ASP.NET Core and Entity Framework Core MVC application with companies and employee CRUD functionality.
 
 ## Required Packages
 
