@@ -1,4 +1,5 @@
 using CompaniesApp.Data;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,13 @@ namespace CompaniesApp
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddControllersWithViews();
+
+            services.AddAuthentication(
+            CertificateAuthenticationDefaults.AuthenticationScheme)
+            .AddCertificate()
+            // Adding an ICertificateValidationCache results in certificate auth caching the results.
+            // The default implementation uses a memory cache.
+            .AddCertificateCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +56,8 @@ namespace CompaniesApp
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
