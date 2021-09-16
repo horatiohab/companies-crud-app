@@ -1,0 +1,8 @@
+version: '3'
+services:
+  ASPNETCORE_URLS:
+    environment: 
+      - "ASPNETCORE_ENVIRONMENT=Development"
+      - "ASPNETCORE_URLS=http://*:$PORT"
+    ports:
+    - "80:43"
