@@ -67,6 +67,8 @@ namespace CompaniesApp
             app.UseAuthentication();
 
             app.UseDeveloperExceptionPage();
+            
+            app.UseStatusCodePages();
 
             app.UseEndpoints(endpoints =>
             {
