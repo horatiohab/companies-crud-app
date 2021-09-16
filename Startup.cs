@@ -26,11 +26,10 @@ namespace CompaniesApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = "Server=horatio.mysql.database.azure.com; Port=3306; Database=horatio; Uid=horatiohab@horatio; Pwd=JwSS6L&QRkDWN!; SslMode=Preferred";
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
             services.AddDbContext<ApplicationDbContext>(
             dbContextOptions => dbContextOptions
-                .UseMySql(connectionString, serverVersion)
+                .UseMySql("ConnectionString", serverVersion)
                 .EnableSensitiveDataLogging() // <-- These two calls are optional but help
                 .EnableDetailedErrors()       // <-- with debugging (remove for production).
         );
@@ -67,7 +66,7 @@ namespace CompaniesApp
             app.UseAuthentication();
 
             app.UseDeveloperExceptionPage();
-            
+
             app.UseStatusCodePages();
 
             app.UseEndpoints(endpoints =>
